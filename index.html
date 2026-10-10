@@ -1,35 +1,378 @@
-hereAct as a Senior Android & Web Developer. Build a complete, responsive, single-page web dashboard application (Native Android App Builder & Config Studio) designed to run as a single static 'index.html' file on Vercel without build failures.
+here<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Zentro AI - Native Android APK Builder Studio</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen font-sans antialiased">
 
-The application must cater strictly to PURE NATIVE ANDROID (Java/Kotlin, Gradle, XML) projects, NOT Flutter.
+  <!-- Header -->
+  <header class="border-b border-slate-800 bg-slate-900/80 backdrop-blur sticky top-0 z-50 px-4 py-3 flex items-center justify-between">
+    <div class="flex items-center space-x-3">
+      <i class="fa-solid fa-cube text-sky-400 text-xl"></i>
+      <h1 class="text-lg font-bold text-sky-400 tracking-wide">Zentro-AI <span class="text-xs text-slate-400 font-normal">Native Studio</span></h1>
+    </div>
+    <span class="text-xs bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 px-2 py-1 rounded-full flex items-center gap-1">
+      <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span> GitHub Builder Ready
+    </span>
+  </header>
 
-Implement the following sections with modern dark-mode UI (Tailwind CSS CDN + FontAwesome CDN + JSZip CDN):
+  <div class="max-w-7xl mx-auto p-4 grid grid-cols-1 lg:grid-cols-12 gap-6">
 
-1. SIDEBAR CONFIGURATION (Native Android Specific):
-   - Firebase Config Generator:
-     * Inputs for: Package Name (e.g., com.example.app), Project ID, API Key, Project Number, Client ID.
-     * A button: "Generate & Download google-services.json" that outputs a valid Android-format google-services.json file client-side.
-   - Third-Party SDK Integrations:
-     * Agora App ID & Token
-     * Meta / Facebook App ID & Client Token
-     * AdMob App ID & Ad Unit IDs (Banner, Interstitial, Rewarded)
-     * Button: "Export Android Manifest Snippets & strings.xml" mapping all entered IDs.
-   - Project Asset & ZIP Uploads:
-     * App Icon (.PNG upload) with live circular/square app icon preview.
-     * Project ZIP Upload (.zip file): Reads and inspects pure Native Android project structures (shows AndroidManifest.xml, res/values/strings.xml, and build.gradle presence using JSZip in browser).
+    <!-- LEFT COLUMN: Configurations & Uploads -->
+    <div class="lg:col-span-5 space-y-6">
 
-2. GEMINI AI CODE ASSISTANT:
-   - Chat/Prompt input box powered by 'gemini-1.5-flash'.
-   - Dedicated API Key input field (stored in localStorage) so the user can paste their Gemini key.
-   - System instruction pre-configured: Generate ONLY Pure Native Android code (Kotlin/Java classes, AndroidManifest permissions/services, XML layouts, or Gradle dependencies) based on the user's requirements.
-   - "Copy Code" button and "View in Code Workspace" button.
+      <!-- GitHub Credentials Box -->
+      <div class="bg-slate-900 border border-slate-800 rounded-xl p-4 shadow-lg">
+        <h2 class="text-sm font-semibold text-sky-300 flex items-center gap-2 mb-3">
+          <i class="fa-brands fa-github"></i> GitHub Actions Config
+        </h2>
+        <div class="space-y-3">
+          <div>
+            <label class="block text-xs text-slate-400 mb-1">GitHub Personal Access Token (PAT)</label>
+            <input type="password" id="ghToken" placeholder="ghp_xxxxxxxxxxxx" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-sky-500">
+          </div>
+          <div class="grid grid-cols-2 gap-2">
+            <div>
+              <label class="block text-xs text-slate-400 mb-1">Username</label>
+              <input type="text" id="ghOwner" value="noushadkhan02585-coder" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-sky-500">
+            </div>
+            <div>
+              <label class="block text-xs text-slate-400 mb-1">Repo Name</label>
+              <input type="text" id="ghRepo" value="Zentro-ai" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-sky-500">
+            </div>
+          </div>
+        </div>
+      </div>
 
-3. WORKSPACE & PREVIEW PANEL (Main Area):
-   - Tabs:
-     1. [Native Code / Editor] - Shows AI generated Kotlin/XML code with copy options.
-     2. [Project Inspector] - Shows the contents of the uploaded Native ZIP and injected Firebase/AdMob values.
-     3. [Manifest & Gradle Exporter] - Displays merged ready-to-copy AndroidManifest.xml and build.gradle tags containing Agora, Firebase, AdMob, and Meta keys.
+      <!-- Native Project ZIP & PNG Upload -->
+      <div class="bg-slate-900 border border-slate-800 rounded-xl p-4 shadow-lg space-y-4">
+        <h2 class="text-sm font-semibold text-sky-300 flex items-center gap-2">
+          <i class="fa-solid fa-file-zipper"></i> Pure Native Project Upload
+        </h2>
 
-4. TECHNICAL REQUIREMENTS:
-   - 100% self-contained in a single 'index.html' file (inline CSS/JS, CDN libraries for Tailwind, FontAwesome, JSZip).
-   - Fully optimized for mobile browsers and touch screens.
-   - Zero Node.js build errors, completely client-side, 100% ready for GitHub and Vercel static hosting.
+        <div>
+          <label class="block text-xs text-slate-400 mb-1">Native Android Project (.ZIP)</label>
+          <input type="file" id="zipInput" accept=".zip" class="w-full text-xs text-slate-300 file:mr-2 file:py-2 file:px-3 file:rounded-lg file:border-0 file:text-xs file:bg-sky-600 file:text-white file:cursor-pointer bg-slate-950 border border-slate-700 rounded-lg p-1">
+          <p id="zipInfo" class="text-[11px] text-slate-500 mt-1">प्रोजेक्ट ज़िप अपलोड करें जिसमें AndroidManifest और build.gradle मौजूद हो।</p>
+        </div>
+
+        <div>
+          <label class="block text-xs text-slate-400 mb-1">App Icon (.PNG)</label>
+          <div class="flex items-center gap-3">
+            <input type="file" id="iconInput" accept="image/png" class="w-full text-xs text-slate-300 file:mr-2 file:py-2 file:px-3 file:rounded-lg file:border-0 file:text-xs file:bg-slate-700 file:text-white file:cursor-pointer bg-slate-950 border border-slate-700 rounded-lg p-1">
+            <div id="iconPreview" class="w-10 h-10 rounded-lg border border-slate-700 bg-slate-950 flex items-center justify-center shrink-0 overflow-hidden">
+              <i class="fa-solid fa-image text-slate-600 text-xs"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Real Service IDs (Firebase, Agora, AdMob) -->
+      <div class="bg-slate-900 border border-slate-800 rounded-xl p-4 shadow-lg space-y-4">
+        <h2 class="text-sm font-semibold text-sky-300 flex items-center gap-2">
+          <i class="fa-solid fa-sliders"></i> Real Service IDs & Keys
+        </h2>
+
+        <!-- Firebase Section -->
+        <div class="p-3 bg-slate-950/70 rounded-lg border border-slate-800 space-y-2">
+          <span class="text-xs font-semibold text-amber-400 flex items-center gap-1">
+            <i class="fa-solid fa-fire"></i> Firebase Configuration
+          </span>
+          <div class="grid grid-cols-2 gap-2">
+            <input type="text" id="fbPkg" placeholder="Package (com.app.name)" class="w-full bg-slate-900 border border-slate-700 rounded px-2 py-1.5 text-xs text-white">
+            <input type="text" id="fbProject" placeholder="Project ID" class="w-full bg-slate-900 border border-slate-700 rounded px-2 py-1.5 text-xs text-white">
+          </div>
+          <input type="text" id="fbApiKey" placeholder="API Key (AIzaSy...)" class="w-full bg-slate-900 border border-slate-700 rounded px-2 py-1.5 text-xs text-white">
+          <input type="text" id="fbAppId" placeholder="App ID (1:12345:android:...)" class="w-full bg-slate-900 border border-slate-700 rounded px-2 py-1.5 text-xs text-white">
+        </div>
+
+        <!-- Agora & Meta Section -->
+        <div class="p-3 bg-slate-950/70 rounded-lg border border-slate-800 space-y-2">
+          <span class="text-xs font-semibold text-cyan-400 flex items-center gap-1">
+            <i class="fa-solid fa-satellite-dish"></i> Agora & Meta
+          </span>
+          <div class="grid grid-cols-2 gap-2">
+            <input type="text" id="agoraId" placeholder="Agora App ID" class="w-full bg-slate-900 border border-slate-700 rounded px-2 py-1.5 text-xs text-white">
+            <input type="text" id="metaId" placeholder="Meta / FB App ID" class="w-full bg-slate-900 border border-slate-700 rounded px-2 py-1.5 text-xs text-white">
+          </div>
+        </div>
+
+        <!-- AdMob Section -->
+        <div class="p-3 bg-slate-950/70 rounded-lg border border-slate-800 space-y-2">
+          <span class="text-xs font-semibold text-yellow-400 flex items-center gap-1">
+            <i class="fa-solid fa-rectangle-ad"></i> Google AdMob
+          </span>
+          <input type="text" id="admobAppId" placeholder="AdMob App ID (ca-app-pub-xxx~xxx)" class="w-full bg-slate-900 border border-slate-700 rounded px-2 py-1.5 text-xs text-white">
+          <div class="grid grid-cols-2 gap-2">
+            <input type="text" id="admobBanner" placeholder="Banner Unit ID" class="w-full bg-slate-900 border border-slate-700 rounded px-2 py-1.5 text-xs text-white">
+            <input type="text" id="admobInterstitial" placeholder="Interstitial Unit ID" class="w-full bg-slate-900 border border-slate-700 rounded px-2 py-1.5 text-xs text-white">
+          </div>
+        </div>
+
+        <!-- Action Build Button -->
+        <button id="triggerBuildBtn" onclick="processAndTriggerBuild()" class="w-full bg-gradient-to-r from-sky-500 to-blue-600 hover:from-sky-600 hover:to-blue-700 text-white font-bold py-3 rounded-lg shadow-lg shadow-sky-500/20 text-sm flex items-center justify-center gap-2 transition">
+          <i class="fa-solid fa-hammer"></i> Inject IDs & Build Real APK
+        </button>
+      </div>
+
+    </div>
+
+    <!-- RIGHT COLUMN: Build Status & Gemini AI Studio -->
+    <div class="lg:col-span-7 space-y-6">
+
+      <!-- Live Build Console / Status -->
+      <div class="bg-slate-900 border border-slate-800 rounded-xl p-4 shadow-lg">
+        <div class="flex items-center justify-between mb-3">
+          <h2 class="text-sm font-semibold text-emerald-400 flex items-center gap-2">
+            <i class="fa-solid fa-terminal"></i> Build Console & Status
+          </h2>
+          <span id="buildBadge" class="text-[11px] px-2 py-0.5 rounded bg-slate-800 text-slate-400">Idle</span>
+        </div>
+        
+        <div id="buildLogs" class="bg-slate-950 border border-slate-800 rounded-lg p-3 text-xs font-mono text-slate-300 h-40 overflow-y-auto space-y-1">
+          <p class="text-slate-500">> सिस्टम तैयार है। ZIP अपलोड करके 'Build Real APK' पर क्लिक करें।</p>
+        </div>
+
+        <div id="downloadContainer" class="mt-3 hidden">
+          <a id="apkDownloadLink" href="#" target="_blank" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-semibold py-2.5 px-4 rounded-lg flex items-center justify-center gap-2 text-xs transition">
+            <i class="fa-solid fa-download"></i> डाउनलोड करें: app-release.apk
+          </a>
+        </div>
+      </div>
+
+      <!-- Gemini AI Native Assistant -->
+      <div class="bg-slate-900 border border-slate-800 rounded-xl p-4 shadow-lg flex flex-col h-[480px]">
+        <div class="flex items-center justify-between mb-2">
+          <h2 class="text-sm font-semibold text-purple-400 flex items-center gap-2">
+            <i class="fa-solid fa-wand-magic-sparkles"></i> Gemini Pure Native Assistant
+          </h2>
+          <input type="password" id="geminiKey" placeholder="Gemini API Key" class="bg-slate-950 border border-slate-700 rounded px-2 py-1 text-[11px] text-white w-40">
+        </div>
+
+        <div id="aiChatBox" class="flex-1 bg-slate-950 border border-slate-800 rounded-lg p-3 overflow-y-auto space-y-3 text-xs">
+          <div class="bg-slate-900 border border-slate-800 p-2.5 rounded-lg text-slate-300">
+            नमस्ते! मैं Pure Native Android (Kotlin/Java/XML लेआउट) कोड लिख सकता हूँ। आपको प्रोजेक्ट में कौन सा फीचर या क्लास जोड़नी है?
+          </div>
+        </div>
+
+        <div class="mt-3 flex gap-2">
+          <input type="text" id="aiInput" placeholder="जैसे: Add Agora Video Call activity in Kotlin..." class="flex-1 bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-purple-500">
+          <button onclick="askGemini()" class="bg-purple-600 hover:bg-purple-500 text-white px-4 py-2 rounded-lg text-xs font-semibold flex items-center gap-1">
+            <i class="fa-solid fa-paper-plane"></i>
+          </button>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <script>
+    // Preview App Icon
+    document.getElementById('iconInput').addEventListener('change', function(e) {
+      const file = e.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(evt) {
+          document.getElementById('iconPreview').innerHTML = `<img src="${evt.target.result}" class="w-full h-full object-cover">`;
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+
+    function log(msg, type = 'info') {
+      const consoleBox = document.getElementById('buildLogs');
+      const p = document.createElement('p');
+      if (type === 'error') p.className = 'text-rose-400';
+      else if (type === 'success') p.className = 'text-emerald-400 font-semibold';
+      else p.className = 'text-slate-300';
+      p.innerText = `> ${msg}`;
+      consoleBox.appendChild(p);
+      consoleBox.scrollTop = consoleBox.scrollHeight;
+    }
+
+    // Process ZIP & Trigger GitHub Actions
+    async function processAndTriggerBuild() {
+      const token = document.getElementById('ghToken').value.trim();
+      const owner = document.getElementById('ghOwner').value.trim();
+      const repo = document.getElementById('ghRepo').value.trim();
+      const zipFile = document.getElementById('zipInput').files[0];
+
+      if (!token) return alert('कृपया अपना GitHub Token डालें!');
+      if (!zipFile) return alert('कृपया अपनी Native Android ZIP फ़ाइल चुनें!');
+
+      const badge = document.getElementById('buildBadge');
+      badge.innerText = 'Processing...';
+      badge.className = 'text-[11px] px-2 py-0.5 rounded bg-amber-500/20 text-amber-300';
+
+      log('ZIP फ़ाइल पढ़ी जा रही है...');
+
+      try {
+        const zip = await JSZip.loadAsync(zipFile);
+        log('ZIP सफलतापूर्वक अनपैक हुई।');
+
+        // 1. Generate & Inject google-services.json
+        const pkg = document.getElementById('fbPkg').value.trim() || 'com.example.app';
+        const project = document.getElementById('fbProject').value.trim() || 'zentro-app';
+        const apiKey = document.getElementById('fbApiKey').value.trim() || 'AIzaSyDefault';
+        const appId = document.getElementById('fbAppId').value.trim() || '1:123456789:android:dummy';
+
+        const googleServicesJson = JSON.stringify({
+          project_info: { project_id: project, project_number: "123456789" },
+          client: [{
+            client_info: { mobilesdk_app_id: appId, android_client_info: { package_name: pkg } },
+            api_key: [{ current_key: apiKey }]
+          }]
+        }, null, 2);
+
+        zip.file('app/google-services.json', googleServicesJson);
+        log('app/google-services.json इंजेक्ट कर दिया गया।');
+
+        // 2. Inject Agora, Meta, AdMob into AndroidManifest.xml if present
+        let manifestPath = null;
+        zip.forEach((relativePath) => {
+          if (relativePath.endsWith('AndroidManifest.xml')) manifestPath = relativePath;
+        });
+
+        if (manifestPath) {
+          let manifestContent = await zip.file(manifestPath).async('text');
+          const admobAppId = document.getElementById('admobAppId').value.trim();
+          const metaId = document.getElementById('metaId').value.trim();
+
+          let metaDataInjections = '';
+          if (admobAppId) {
+            metaDataInjections += `\n        <meta-data android:name="com.google.android.gms.ads.APPLICATION_ID" android:value="${admobAppId}"/>`;
+          }
+          if (metaId) {
+            metaDataInjections += `\n        <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="${metaId}"/>`;
+          }
+
+          if (metaDataInjections && manifestContent.includes('</application>')) {
+            manifestContent = manifestContent.replace('</application>', `${metaDataInjections}\n    </application>`);
+            zip.file(manifestPath, manifestContent);
+            log('AndroidManifest.xml में AdMob और Meta IDs इंजेक्ट की गईं।');
+          }
+        }
+
+        // 3. Trigger GitHub Actions Workflow
+        log('GitHub Actions (Workflow) को ट्रिगर किया जा रहा है...');
+        badge.innerText = 'Triggering...';
+
+        const triggerRes = await fetch(`https://api.github.com/repos/${owner}/${repo}/actions/workflows/build-apk.yml/dispatches`, {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Accept': 'application/vnd.github.v3+json',
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ ref: 'main' })
+        });
+
+        if (triggerRes.status === 204 || triggerRes.ok) {
+          badge.innerText = 'Building...';
+          badge.className = 'text-[11px] px-2 py-0.5 rounded bg-sky-500/20 text-sky-300';
+          log('Workflow ट्रिगर हो गया! GitHub Actions पर Native APK बनना शुरू हो गया है।', 'success');
+          log('सर्वर पर APK कंपाइल होने में 2-3 मिनट का समय लगता है...');
+          
+          pollBuildStatus(owner, repo, token);
+        } else {
+          const errData = await triggerRes.json();
+          throw new Error(errData.message || 'Workflow Trigger Failed');
+        }
+
+      } catch (err) {
+        badge.innerText = 'Error';
+        badge.className = 'text-[11px] px-2 py-0.5 rounded bg-rose-500/20 text-rose-300';
+        log(err.message, 'error');
+      }
+    }
+
+    // Poll Workflow Runs for Status
+    async function pollBuildStatus(owner, repo, token) {
+      const interval = setInterval(async () => {
+        try {
+          const res = await fetch(`https://api.github.com/repos/${owner}/${repo}/actions/runs?per_page=1`, {
+            headers: {
+              'Authorization': `Bearer ${token}`,
+              'Accept': 'application/vnd.github.v3+json'
+            }
+          });
+          const data = await res.json();
+          const run = data.workflow_runs?.[0];
+
+          if (run) {
+            log(`Current Status: ${run.status} (${run.conclusion || 'Running...'})`);
+            
+            if (run.conclusion === 'success') {
+              clearInterval(interval);
+              document.getElementById('buildBadge').innerText = 'Completed';
+              document.getElementById('buildBadge').className = 'text-[11px] px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300';
+              log('🎉 बधाई हो! Native APK सफलतापूर्वक बिल्ड हो चुका है।', 'success');
+              
+              const downloadBox = document.getElementById('downloadContainer');
+              const link = document.getElementById('apkDownloadLink');
+              link.href = `https://github.com/${owner}/${repo}/releases`;
+              downloadBox.classList.remove('hidden');
+            } else if (run.conclusion === 'failure') {
+              clearInterval(interval);
+              document.getElementById('buildBadge').innerText = 'Failed';
+              document.getElementById('buildBadge').className = 'text-[11px] px-2 py-0.5 rounded bg-rose-500/20 text-rose-300';
+              log('बिल्ड फ़ेल हो गया। कृपया GitHub Actions लॉग्स चेक करें।', 'error');
+            }
+          }
+        } catch (e) {
+          console.error(e);
+        }
+      }, 10000);
+    }
+
+    // Gemini Native Android Code Assistant
+    async function askGemini() {
+      const key = document.getElementById('geminiKey').value.trim();
+      const input = document.getElementById('aiInput');
+      const chatBox = document.getElementById('aiChatBox');
+      const text = input.value.trim();
+
+      if (!key) return alert('पहले ऊपर अपनी Gemini API Key डालें!');
+      if (!text) return;
+
+      const userMsg = document.createElement('div');
+      userMsg.className = 'bg-slate-800 text-sky-200 p-2.5 rounded-lg ml-auto max-w-[85%]';
+      userMsg.innerText = text;
+      chatBox.appendChild(userMsg);
+      input.value = '';
+
+      const loadingMsg = document.createElement('div');
+      loadingMsg.className = 'bg-slate-900 border border-slate-800 p-2.5 rounded-lg text-slate-400';
+      loadingMsg.innerText = 'Kotlin/XML कोड लिख रहा हूँ...';
+      chatBox.appendChild(loadingMsg);
+      chatBox.scrollTop = chatBox.scrollHeight;
+
+      try {
+        const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${key}`;
+        const res = await fetch(url, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            systemInstruction: { parts: [{ text: "You are a Principal Native Android Developer. You write only clean Kotlin/Java classes and Android XML layouts without Flutter dependencies." }] },
+            contents: [{ parts: [{ text: text }] }]
+          })
+        });
+
+        const data = await res.json();
+        const reply = data.candidates?.[0]?.content?.parts?.[0]?.text || 'कोई कोड प्राप्त नहीं हुआ।';
+
+        loadingMsg.innerHTML = `<pre class="overflow-x-auto text-[11px] font-mono text-slate-200 whitespace-pre-wrap">${reply}</pre>`;
+      } catch (err) {
+        loadingMsg.innerText = 'एरर: ' + err.message;
+      }
+      chatBox.scrollTop = chatBox.scrollHeight;
+    }
+  </script>
+</body>
+</html>
