@@ -1,0 +1,35 @@
+hereAct as a Senior Android & Web Developer. Build a complete, responsive, single-page web dashboard application (Native Android App Builder & Config Studio) designed to run as a single static 'index.html' file on Vercel without build failures.
+
+The application must cater strictly to PURE NATIVE ANDROID (Java/Kotlin, Gradle, XML) projects, NOT Flutter.
+
+Implement the following sections with modern dark-mode UI (Tailwind CSS CDN + FontAwesome CDN + JSZip CDN):
+
+1. SIDEBAR CONFIGURATION (Native Android Specific):
+   - Firebase Config Generator:
+     * Inputs for: Package Name (e.g., com.example.app), Project ID, API Key, Project Number, Client ID.
+     * A button: "Generate & Download google-services.json" that outputs a valid Android-format google-services.json file client-side.
+   - Third-Party SDK Integrations:
+     * Agora App ID & Token
+     * Meta / Facebook App ID & Client Token
+     * AdMob App ID & Ad Unit IDs (Banner, Interstitial, Rewarded)
+     * Button: "Export Android Manifest Snippets & strings.xml" mapping all entered IDs.
+   - Project Asset & ZIP Uploads:
+     * App Icon (.PNG upload) with live circular/square app icon preview.
+     * Project ZIP Upload (.zip file): Reads and inspects pure Native Android project structures (shows AndroidManifest.xml, res/values/strings.xml, and build.gradle presence using JSZip in browser).
+
+2. GEMINI AI CODE ASSISTANT:
+   - Chat/Prompt input box powered by 'gemini-1.5-flash'.
+   - Dedicated API Key input field (stored in localStorage) so the user can paste their Gemini key.
+   - System instruction pre-configured: Generate ONLY Pure Native Android code (Kotlin/Java classes, AndroidManifest permissions/services, XML layouts, or Gradle dependencies) based on the user's requirements.
+   - "Copy Code" button and "View in Code Workspace" button.
+
+3. WORKSPACE & PREVIEW PANEL (Main Area):
+   - Tabs:
+     1. [Native Code / Editor] - Shows AI generated Kotlin/XML code with copy options.
+     2. [Project Inspector] - Shows the contents of the uploaded Native ZIP and injected Firebase/AdMob values.
+     3. [Manifest & Gradle Exporter] - Displays merged ready-to-copy AndroidManifest.xml and build.gradle tags containing Agora, Firebase, AdMob, and Meta keys.
+
+4. TECHNICAL REQUIREMENTS:
+   - 100% self-contained in a single 'index.html' file (inline CSS/JS, CDN libraries for Tailwind, FontAwesome, JSZip).
+   - Fully optimized for mobile browsers and touch screens.
+   - Zero Node.js build errors, completely client-side, 100% ready for GitHub and Vercel static hosting.
